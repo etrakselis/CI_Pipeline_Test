@@ -1,0 +1,32 @@
+###########################################################
+# Rename the file extension to ".yaml" (remove "_") to enable
+###########################################################
+
+name: Docker Series Builds
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://docker.edwintrakselis.com
+    - name: clone repo
+      run: | 
+        git clone git@github.com:etrakselis/CI_Pipeline_Test.git 
+    - name: docker build mysite-nginx2
+      run: |
+        docker build -t mysite-nginx2:latest .  
+    - name: docker tag the image
+      run: |
+        docker tag mysite-nginx2:latest docker.edwintrakselis.com/mysite-nginx2:latest
+    - name: docker push
+      run: |
+        docker push docker.edwintrakselis.com/mysite-nginx2:latest
+      
