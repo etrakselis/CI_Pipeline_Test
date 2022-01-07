@@ -16,7 +16,7 @@ jobs:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}   
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
       run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://docker.edwintrakselis.com
     - name: docker clone repo
       run: | 
         docker clone git@github.com:etrakselis/CI_Pipeline_Test.git 
