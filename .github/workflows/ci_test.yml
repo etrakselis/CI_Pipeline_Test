@@ -19,7 +19,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build mysite-nginx2
       run: |
-        docker build -t mysite-nginx2:latest   
+        docker build -t mysite-nginx2:latest .  
     - name: docker push
       run: |
         docker push docker.edwintrakselis.com/mysite-nginx2:latest
