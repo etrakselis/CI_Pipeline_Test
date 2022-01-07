@@ -29,4 +29,7 @@ jobs:
     - name: docker push
       run: |
         docker push docker.edwintrakselis.com/mysite-nginx2:latest
+    - name: Reset Deployment
+      run: |
+        sudo kubectl rollout restart deployments mysite-nginx2  
       
