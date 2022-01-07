@@ -17,9 +17,9 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://docker.edwintrakselis.com
-    - name: docker clone repo
+    - name: clone repo
       run: | 
-        docker clone git@github.com:etrakselis/CI_Pipeline_Test.git 
+        git clone git@github.com:etrakselis/CI_Pipeline_Test.git 
     - name: docker build mysite-nginx2
       run: |
         docker build -t mysite-nginx2:latest .  
