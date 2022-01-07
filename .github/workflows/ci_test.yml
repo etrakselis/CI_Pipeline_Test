@@ -1,7 +1,3 @@
-###########################################################
-# Rename the file extension to ".yaml" (remove "_") to enable
-###########################################################
-
 name: Docker Series Builds
 
 on: [push]
@@ -11,6 +7,13 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2
+            einaregilsson/build-number@v3
+      with:
+        token: ${{secrets.github_token}}   
+    - name: Print new build number
+      run: echo "Build number is $BUILD_NUMBER"           
+    - name: Generate build number
+      id: buildnumber
     - name: docker login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}   
@@ -22,13 +25,13 @@ jobs:
         git clone git@github.com:etrakselis/CI_Pipeline_Test.git 
     - name: docker build mysite-nginx2
       run: |
-        docker build -t mysite-nginx2:latest .  
+        docker build -t mysite-nginx2:${{ steps.buildnumber.outputs.build_number }} .  
     - name: docker tag the image
       run: |
-        docker tag mysite-nginx2:latest docker.edwintrakselis.com/mysite-nginx2:latest
+        docker tag mysite-nginx2:${{ steps.buildnumber.outputs.build_number }} docker.edwintrakselis.com/mysite-nginx2:${{ steps.buildnumber.outputs.build_number }}
     - name: docker push
       run: |
-        docker push docker.edwintrakselis.com/mysite-nginx2:latest
+        docker push docker.edwintrakselis.com/mysite-nginx2:${{ steps.buildnumber.outputs.build_number }}
     - name: Reset Deployment
       run: |
         sudo kubectl rollout restart deployments mysite-nginx2  
