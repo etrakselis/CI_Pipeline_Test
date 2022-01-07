@@ -6,8 +6,7 @@ jobs:
   build:
     runs-on: self-hosted
     steps:
-    - uses: actions/checkout@v2
-            einaregilsson/build-number@v3
+    - uses: einaregilsson/build-number@v3
       with:
         token: ${{secrets.github_token}}   
     - name: Print new build number
