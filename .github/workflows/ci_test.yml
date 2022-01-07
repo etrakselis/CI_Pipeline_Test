@@ -24,7 +24,7 @@ jobs:
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://docker.edwintrakselis.com
     - name: clone repo
       run: | 
-        git clone git@github.com:etrakselis/CI_Pipeline_Test.git 
+        git pull git@github.com:etrakselis/CI_Pipeline_Test.git 
     - name: docker build mysite-nginx2
       run: |
         docker build -t mysite-nginx2:${{ steps.buildnumber.outputs.build_number }} .  
