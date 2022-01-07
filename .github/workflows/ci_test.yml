@@ -23,6 +23,9 @@ jobs:
     - name: docker build mysite-nginx2
       run: |
         docker build -t mysite-nginx2:latest .  
+    - name: docker tag the image
+      run: |
+        docker tag mysite-nginx2:latest docker.edwintrakselis.com/mysite-nginx2:latest
     - name: docker push
       run: |
         docker push docker.edwintrakselis.com/mysite-nginx2:latest
