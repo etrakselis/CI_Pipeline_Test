@@ -34,7 +34,7 @@ jobs:
         docker push docker.edwintrakselis.com/mysite-nginx2:v${{ steps.buildnumber.outputs.build_number }}
     - name: update the image version
       run: |
-        sudo kubectl set image deployment mysite-nginx2 docker.edwintrakselis.com/mysite-nginx2=docker.edwintrakselis.com/mysite-nginx2:v${{ steps.buildnumber.outputs.build_number }}  
+        sudo kubectl set image deployment mysite-nginx2 mysite-nginx2=docker.edwintrakselis.com/mysite-nginx2:v${{ steps.buildnumber.outputs.build_number }}  
     - name: Reset Deployment
       run: |
         sudo kubectl rollout restart deployments mysite-nginx2  
