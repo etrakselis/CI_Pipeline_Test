@@ -95,7 +95,7 @@ h1 {
   .container {
     max-width: 600px;
     margin: auto;
-    height: 50vh;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -111,6 +111,8 @@ h1 {
     display: none;
   }
   
+
+
   .cursor {
     font-weight: 700;
     animation: 1s blink step-end infinite;
@@ -143,5 +145,12 @@ img {
     margin: auto;
     padding: 0px;
 	  max-width: 40%;
+}
+
+
+@media screen and (max-height: 500px) {
+  .hide-mobile-h {
+    display: none;
+    }
 }
 

@@ -1,5 +1,3 @@
-![Markdown Logo](https://edwintrakselis.com/images/logo.png)
-
 # Project summary
 
 
