@@ -1,5 +1,7 @@
 name: Docker Series Builds
 
+name: CI - Pipeline
+
 on:
   push:
     branches: [ master ]
@@ -9,33 +11,32 @@ jobs:
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v2  
-    - name: docker login
+    - name: Docker login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}   
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://docker.edwintrakselis.com
-    - name: update local repo
+    - name: Sync-up the local repo
       run: | 
-        git clone git@github.com:etrakselis/CI_Pipeline_Test.git           
-    - name: Generate build number
+        git clone git@github.com:etrakselis/init_start.git           
+    - name: Generate the build number
       id: buildnumber
       uses: einaregilsson/build-number@v3 
       with:
         token: ${{secrets.github_token}}     
-    - name: docker build mysite-nginx2
+    - name: Build a docker image
       run: |
-        docker build -t mysite-nginx2:v${{ steps.buildnumber.outputs.build_number }} .  
-    - name: docker tag the image
+        docker build -t mysite-nginx:v${{ steps.buildnumber.outputs.build_number }} .  
+    - name: Tag the image
       run: |
-        docker tag mysite-nginx2:v${{ steps.buildnumber.outputs.build_number }} docker.edwintrakselis.com/mysite-nginx2:v${{ steps.buildnumber.outputs.build_number }}
-    - name: docker push
+        docker tag mysite-nginx:v${{ steps.buildnumber.outputs.build_number }} docker.edwintrakselis.com/mysite-nginx:v${{ steps.buildnumber.outputs.build_number }}
+    - name: Push to the private repo
       run: |
-        docker push docker.edwintrakselis.com/mysite-nginx2:v${{ steps.buildnumber.outputs.build_number }}
-    - name: update the image version
+        docker push docker.edwintrakselis.com/mysite-nginx:v${{ steps.buildnumber.outputs.build_number }}
+    - name: Update the image version
       run: |
-        sudo kubectl set image deployment mysite-nginx2 mysite-nginx2=docker.edwintrakselis.com/mysite-nginx2:v${{ steps.buildnumber.outputs.build_number }}  
-    - name: Reset Deployment
+        kubectl set image deployment mysite-nginx mysite-nginx=docker.edwintrakselis.com/mysite-nginx:v${{ steps.buildnumber.outputs.build_number }}  
+    - name: Reset the deployment pods
       run: |
-        sudo kubectl rollout restart deployments mysite-nginx2  
-      
+        kubectl rollout restart deployments mysite-nginx     

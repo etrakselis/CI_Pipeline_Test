@@ -3,34 +3,95 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ETDS</title>
+<title>ETM</title>
+<link rel="icon" type="image/x-icon" href="images/favicon.png">    
 <link rel="canonical" href="https://edwintrakselis.com" />
-<meta name="description" content="Edwin Trakselis Data Solutions">
-<meta name="keywords" content="Edwin, Trakselis, Data, Solutions, ETDS">
+<meta name="description" content="Edwin Trakselis Micro Services">
+<meta name="keywords" content="Edwin, Trakselis, Micro, Services, Microservices, ETM, Edwin Trakselis Microservices">
 <meta name="author" content="Edwin Trakselis">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    html {
-      font-size: 62.5%;
-    }
-    body {
-      font-family: sans-serif;
-      background-color: midnightblue;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      height: 100vh;
-    }
-    div {
-      text-align: center;
-      font-size: 8rem;
-      text-shadow: 3px 3px 4px dimgrey;
-    }
-  </style>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css?family=Fira+Code:400,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div>Hello from K3S!</div>
-  <div>V19</div>
-</body>
+    <div class="container">
+        <header>
+            <nav>
+                <ul>
+              <li id="about">/htop</li>
+              <li><a href="https://www.linkedin.com/in/edwin-trakselis-a8729045/" target="_blank">&nbsp;/whoami</a></li>
+              </ul>
+            </nav>
+          </header>
+  
+      <main>
+        <h1>etm:$</h1>
+        <h3>Deployments:</h3>
+        <ul>
+          <li>
+            ><a href="https://monitoring.edwintrakselis.com/" target="_blank=" class="underline" >Prometheus monitoring</a>
+          </li>
+          <li>
+            ><a href="https://edwintrakselis.com/dashboard/" target="_blank" class="underline" >Load balancer monitoring</a>
+          </li>
+  
+          <li id="app"></li>
+          
+        </ul>
+      </main>
+      <footer>
+
+    
+        <div>
+    
+          &copy;<span id="copyright">
+            <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+          </span>Edwin Trakselis Microservices
+        </div>
+    
+      </footer>
+    </div>
+   
+  
+  
+    <div class="hidden">
+      <div id="about-content">
+        <h2>hardware specs:$</h2>
+        <ul>
+            <li>>Raspberry Pi 4b(3x)</li>
+            <li>>RAM: 8GB</li>
+            <li>>Storage: 512 GB SSD NFS(1x)</li>
+            <li>>Kernel ver: 5.10.63-v8+</li>
+            <li>>CPU architecture: arm64</li>
+            <li>>OS: Debian (bullseye)</li>
+            <li>&nbsp;</li>
+        </ul>
+             <h2>cluster config:$</h2>
+             <ul>
+                <li>>Deploy type: bare-metal on-prem</li>
+                <li>>Kubernetes: (k3s v1.23.1)</li>
+                <li>>Cluster backup: velero + minio</li>
+                <li>>Data backup: rsync</li>
+                <li>>Load balancer: traefik v2.5</li>
+                <li>>PV provisioning: dynamic</li>
+                <li>>Container runtime: containerd</li>
+                <li>>TLS solution: cert-manager</li>
+                <li>>Monitoring: prometheus + grafana</li>
+                <li>>CI Pipeline conf: github-runner</li>
+                
+                <li><span class="cursor">|</span></li>
+            </ul>
+
+      
+      </div>
+  
+   
+    </div>
+
+  
+    <script src="typewriter.js"></script>
+    <script src="helper_lib.js"></script>
+<script src="main.js"></script>
+  </body>
 </html>
