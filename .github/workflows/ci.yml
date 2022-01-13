@@ -1,5 +1,3 @@
-name: Docker Series Builds
-
 name: CI - Pipeline
 
 on:
@@ -39,4 +37,4 @@ jobs:
         kubectl set image deployment mysite-nginx mysite-nginx=docker.edwintrakselis.com/mysite-nginx:v${{ steps.buildnumber.outputs.build_number }}  
     - name: Reset the deployment pods
       run: |
-        kubectl rollout restart deployments mysite-nginx     
+        kubectl rollout restart deployments mysite-nginx    
