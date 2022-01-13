@@ -1,0 +1,40 @@
+name: CI - Pipeline
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2  
+    - name: Docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}   
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+      run: |
+        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD https://docker.edwintrakselis.com
+    - name: Sync-up the local repo
+      run: | 
+        git clone git@github.com:etrakselis/init_start.git           
+    - name: Generate the build number
+      id: buildnumber
+      uses: einaregilsson/build-number@v3 
+      with:
+        token: ${{secrets.github_token}}     
+    - name: Build a docker image
+      run: |
+        docker build -t mysite-nginx:v${{ steps.buildnumber.outputs.build_number }} .  
+    - name: Tag the image
+      run: |
+        docker tag mysite-nginx:v${{ steps.buildnumber.outputs.build_number }} docker.edwintrakselis.com/mysite-nginx:v${{ steps.buildnumber.outputs.build_number }}
+    - name: Push to the private repo
+      run: |
+        docker push docker.edwintrakselis.com/mysite-nginx:v${{ steps.buildnumber.outputs.build_number }}
+    - name: Update the image version
+      run: |
+        kubectl set image deployment mysite-nginx mysite-nginx=docker.edwintrakselis.com/mysite-nginx:v${{ steps.buildnumber.outputs.build_number }}  
+    - name: Reset the deployment pods
+      run: |
+        kubectl rollout restart deployments mysite-nginx    
