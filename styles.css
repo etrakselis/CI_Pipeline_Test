@@ -41,7 +41,7 @@ h1 {
   
   a {
     color: #00aa00;
-    text-decoration: none
+    text-decoration: none;
 }
 
 .underline:hover {
@@ -95,7 +95,7 @@ h1 {
   .container {
     max-width: 600px;
     margin: auto;
-    height: 70vh;
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -142,6 +142,6 @@ h1 {
 img {
     margin: auto;
     padding: 0px;
-	max-width: 40%;
+	  max-width: 40%;
 }
 
