@@ -24,7 +24,7 @@
 * TLS solution: cert-manager
 * Monitoring: prometheus, grafana, & traefik dashboard
 * CI/CD Pipeline: github-runner
-* Docker registry: private
+* Docker registry: self-hosted
 
 
 ---
